@@ -2,21 +2,21 @@ public enum Resource {
     DIAMOND,
     SAPPHIRE,
     EMERALD,
-    ONYX,
-    RUBY;
+    RUBY,
+    ONYX;
 
     public String toString(){
         switch(this){
-            case EMERALD:
-                return "EMERAUDE \u2663"; // EMERAUDE ♣
             case DIAMOND:
                 return "DIAMANT \u2666"; // DIAMANT ♦
             case SAPPHIRE:
                 return "SAPHIR \u2660"; // SAPHIR ♠
-            case ONYX:
-                return "ONYX \u25CF"; // ONYX ●
+            case EMERALD:
+                return "EMERAUDE \u2663"; // EMERAUDE ♣
             case RUBY:
                 return "RUBIS \u2665"; // RUBIS ♥
+            case ONYX:
+                return "ONYX \u25CF"; // ONYX ●
             default:
                 return "";
         }
