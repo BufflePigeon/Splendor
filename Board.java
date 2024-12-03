@@ -10,6 +10,48 @@ import java.util.Collections;
 
 public class Board implements Displayable {
 
+    private ArrayList<Stack> stackCards ; 
+    private DevCard[][] visibleCard ;
+
+    public Board() throws FileNotFoundException{
+        // Création de trois piles de 3 niveaux 
+        Stack<DevCard> stack1 = new Stack<>() ;
+        Stack<DevCard> stack2 = new Stack<>() ;
+        Stack<DevCard> stack3 = new Stack<>() ;
+
+        
+        // Création d'un type File compatible avec la classe Scanner pour utiliser le bon constructeur (pathname:)
+        File file = new File("stats.csv") ;
+        // Lecture du fichier CSV grâce à la class Scanner
+        Scanner csv = new Scanner(file) ;
+
+        // Traitement des 99 lignes du fichier CSV
+        while(csv.hasNextLine()){
+            // Passage à la nouvelle ligne
+            String data = csv.next() ;
+            // division de la ligne par les virgules dans un tableau
+            String[] dataArray = data.split(",") ;
+            // Création des ressources dans le type "Resources"
+            Resources ressources = new Resources() ;
+            
+            // ajout dans les 3 piles selons 3 cas, niveau 1, niveau 2, niveau 3
+            switch(dataArray[0]){
+                case "1" : 
+                    stack1.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ;
+                case "2" :
+                    stack2.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ; 
+                case "3" :
+                    stack3.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ;
+            }
+        }
+
+        // Mélange des piles
+        Collections.shuffle(stack1) ; Collections.shuffle(stack1) ; Collections.shuffle(stack1) ;
+        // ajout des stacks à l'attribut stackCards
+        stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
+
+    }
+
     /* --- Stringers --- */
 
     private String[] deckToStringArray(int tier){
