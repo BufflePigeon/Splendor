@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class DevCard implements Displayable {
 
     private int tier;
@@ -7,7 +5,16 @@ public class DevCard implements Displayable {
     private int points;
     private Resource resourceType;
 
-    public DevCard(int tier,Resources resources, int points, Resource resourceType) {
+    public DevCard(int tier, Resources resources, int points, Resource resourceType) {
+        if (tier < 1 || tier > 3) {
+            throw new InvalidDevCardException("Le niveau de la carte doit être entre 1 et 3. Valeur fournie : " + tier);
+        }
+        if (points < 0) {
+            throw new InvalidDevCardException("Les points de victoire doivent être positifs. Valeur fournie : " + points);
+        }
+        if (resourceType == null) {
+            throw new InvalidDevCardException("Le type de ressource ne peut pas être nul.");
+        }
         this.tier = tier;
         this.resources = resources;
         this.points = points;
