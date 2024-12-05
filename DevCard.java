@@ -3,11 +3,11 @@ import java.util.ArrayList;
 public class DevCard implements Displayable {
 
     private int tier;
-    private Resources resources
+    private Resources resources;
     private int points;
-    private String resourceType;
+    private Resource resourceType;
 
-    public DevCard(int tier,Resources resources, int points, String resourceType) {
+    public DevCard(int tier,Resources resources, int points, Resource resourceType) {
         this.tier = tier;
         this.resources = resources;
         this.points = points;
@@ -26,7 +26,7 @@ public class DevCard implements Displayable {
         return points;
     }
 
-    public String getResourceType() {
+    public Resource getResourceType() {
         return resourceType;
     }
 
@@ -61,7 +61,7 @@ public class DevCard implements Displayable {
                 cardStr[i] = "\u2502"+getCost().getNbResource(res)+" "+res.toSymbol()+"    \u2502";
                 i--;
             }
-        } */
+        }
         return cardStr;
     }
 
@@ -90,16 +90,13 @@ public class DevCard implements Displayable {
 
     public String toString(){
         String cardStr = "";
-        /*
-         * Ce code est à décommenter une fois que la classe DevCard a été implémentée
               
         cardStr = getPoints()+"pts, type "+resourceType.toSymbol()+" | coût: ";
-        for(ACOMPLETER){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
+        for(Resource res: Resource.values()){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
             if(getCost().getNbResource(res)>0){
                 cardStr += getCost().getNbResource(res)+res.toSymbol()+" ";
             }
         }
-        */
         return cardStr;
     }
 }
