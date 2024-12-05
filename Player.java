@@ -1,6 +1,65 @@
+import java.util.ArrayList;
 
 public abstract class Player implements Displayable {
-
+    private int id;
+    private String name;
+    private int points;
+    private ArrayList<DevCard> purchasedCards;
+    private Resources resources;
+    
+    public Player(int id, String name){
+        this.id=id;
+        this.name=name;
+        points=0;
+        purchasedCards= new ArrayList<DevCard>();
+        
+    }
+    
+    public int getNbTokens(){ // pas sur sur
+        return resources.getNbResource("DIAMANT")+resources.getNbResource("SAPHIRE")+
+            resources.getNbResource("EMERAUDES")+resources.getNbResource("RUBY")+
+            resources.getNbResource("ONYX");
+    }
+    
+    public int getNbPurshasedCards(){
+        return purchasedCards.size();
+    }
+    
+    public int getNbResource(String ressource){
+        return resources.getNbResource(ressource);
+    }
+    
+    public Resources getAvailableResoucres(){ //pas sur sur
+        return resources;
+    }
+    
+    public int getResFromCards(String ressource){
+        int somme = 0;
+        for (DevCard card : purchasedCards){
+            somme = somme + 0; //a revoir
+        }
+        return somme;
+    }
+    
+    public void updateNbResource(String ressource, int v){
+        if (v+resources.getNbResource(ressource)<0){
+            System.out.println("Update impossible"); // faire une gestion d'erreur
+        } else {
+            resources.setNbResources(ressource,v+resources.getNbResource(ressource));
+        }
+    }
+    
+    public void updatePoints(int v){
+        points=points+v;
+    }
+    
+    public void addPurchasedCard(DevCard carte){
+        purchasedCards.add(carte);
+    }
+    
+    public boolean canBuyCard(DevCard carte){
+        for (
+    }
     /* --- Stringers --- */
    
      
