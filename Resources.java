@@ -11,37 +11,35 @@ public class Resources {
         return resources;
     }
 
-    public int getNbResource(Resource elt){
-        int i = 0;
-        for(Resource valeur: Resource.values()){
-            if (valeur == elt){
-                return resources.get(i);
-            }
-            i ++;
+    public int getNbResource(Resource elt) {
+        int index = elt.ordinal();
+        if (index >= resources.size()) {
+            throw new InvalidResourceException("La ressource " + elt + " n'est pas valide ou non initialisée.");
         }
-        return -1;
+        return resources.get(index);
     }
 
-    public void setNbResource(Resource elt, int valeur){
-        int i = 0;
-        for(Resource x: Resource.values()){
-            if (elt == x){
-                resources.set(i, valeur);
-            }
-            i ++;
+    public void setNbResource(Resource elt, int valeur) {
+        if (valeur < 0) {
+            throw new InvalidResourceException("La valeur de la ressource " + elt + " ne peut pas être négative.");
         }
+        int index = elt.ordinal();
+        if (index >= resources.size()) {
+            throw new InvalidResourceException("Ressource invalide : " + elt);
+        }
+        resources.set(index, valeur);
     }
 
-    public void updateNbResource(Resource elt, int valeur){
-        int i = 0;
-        for(Resource x: Resource.values()){
-            if (elt == x){
-                if (resources.get(i)+valeur >= 0) {
-                    resources.set(i, resources.get(i)+valeur);
-                }
-            }
-            i ++;
+    public void updateNbResource(Resource elt, int valeur) {
+        int index = elt.ordinal();
+        if (index >= resources.size()) {
+            throw new InvalidResourceException("Ressource invalide : " + elt);
         }
+        int currentValue = resources.get(index);
+        if (currentValue + valeur < 0) {
+            throw new InsufficientResourceException("Ressources insuffisantes pour " + elt + ". Disponible : " + currentValue);
+        }
+        resources.set(index, currentValue + valeur);
     }
 
     public ArrayList getAvailableResources(){
