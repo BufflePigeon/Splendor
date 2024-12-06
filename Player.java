@@ -11,42 +11,51 @@ public abstract class Player implements Displayable {
         this.id=id;
         this.name=name;
         points=0;
+        resources=new Resources();
         purchasedCards= new ArrayList<DevCard>();
         
     }
     
-    public int getNbTokens(){ // pas sur sur
-        return resources.getNbResource("DIAMANT")+resources.getNbResource("SAPHIRE")+
-            resources.getNbResource("EMERAUDES")+resources.getNbResource("RUBY")+
-            resources.getNbResource("ONYX");
+    public String getName(){
+        return name;
+    }
+    
+    public int getPoints(){
+        return points;
+    }
+    
+    public int getNbTokens(){
+        int somme=0;
+        for(Resource res: Resource.values()){
+            somme=somme+resources.getNbResource(res);
+        }
+        return somme;
     }
     
     public int getNbPurshasedCards(){
         return purchasedCards.size();
     }
     
-    public int getNbResource(String ressource){
+    public int getNbResource(Resource ressource){
         return resources.getNbResource(ressource);
     }
     
-    public Resources getAvailableResoucres(){ //pas sur sur
-        return resources;
+    public ArrayList getAvailableResources(){
+        return resources.getAvailableResources();
     }
     
-    public int getResFromCards(String ressource){
+    public int getResFromCards(Resource ressource){ //a essayer (pas sur pour le if)
         int somme = 0;
         for (DevCard card : purchasedCards){
-            somme = somme + 0; //a revoir
+            if (card.getResourceType()==ressource){
+                somme = somme + 1;
+            }
         }
         return somme;
     }
     
-    public void updateNbResource(String ressource, int v){
-        if (v+resources.getNbResource(ressource)<0){
-            System.out.println("Update impossible"); // faire une gestion d'erreur
-        } else {
-            resources.setNbResources(ressource,v+resources.getNbResource(ressource));
-        }
+    public void updateNbResource(Resource ressource, int v){
+        resources.updateNbResource(ressource,v);
     }
     
     public void updatePoints(int v){
@@ -57,8 +66,14 @@ public abstract class Player implements Displayable {
         purchasedCards.add(carte);
     }
     
-    public boolean canBuyCard(DevCard carte){
-        for (
+    public boolean canBuyCard(DevCard carte){ //A voir pour la condition foireuse
+        Resources cost=carte.getCost();
+        for (int i=0; i<=cost.getList().size(); i++){
+            if (cost.getList().get(i)>resources.getList().get(i)){
+                return false;
+            }
+        }
+        return true;
     }
     /* --- Stringers --- */
    
@@ -76,8 +91,7 @@ public abstract class Player implements Displayable {
          */
         String pointStr = " ";
         String[] strPlayer = new String[8];
-         /*
-            * A decommenter une fois la classe implémentée
+        
         if(points>0){
             pointStr = new String(new int[] {getPoints()+9311}, 0, 1);
         }else{
@@ -88,10 +102,10 @@ public abstract class Player implements Displayable {
         strPlayer[0] = "Player "+(id+1)+": "+name;
         strPlayer[1] = pointStr + "pts";
         strPlayer[2] = "";
-        for(ACOMPLETER){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
+        for(Resource res: Resource.values()){ //-- parcourir l'ensemble des resources (res) en utilisant l'énumération Resource
             strPlayer[3+(Resource.values().length-1-res.ordinal())] = res.toSymbol() + " ("+resources.getNbResource(res)+") ["+getResFromCards(res)+"]";
         }
-        */
+        
         return strPlayer;
     }
 }
