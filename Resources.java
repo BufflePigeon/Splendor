@@ -7,7 +7,7 @@ public class Resources {
         resources = new ArrayList<Integer>();
     }
 
-    public ArrayList getList(){
+    public ArrayList<Integer> getList(){
         return resources;
     }
 
