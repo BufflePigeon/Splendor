@@ -10,10 +10,12 @@ import java.util.Collections;
 
 public class Board implements Displayable {
 
-    private ArrayList<Stack> stackCards ; 
+    private ArrayList<Stack<DevCard>> stackCards ; 
     private DevCard[][] visibleCard ;
 
-    public Board() throws FileNotFoundException{
+    private Resources ressources ;
+
+    public Board(int nbPlayer) throws FileNotFoundException{
         // Création de trois piles de 3 niveaux 
         Stack<DevCard> stack1 = new Stack<>() ;
         Stack<DevCard> stack2 = new Stack<>() ;
@@ -32,23 +34,59 @@ public class Board implements Displayable {
             // division de la ligne par les virgules dans un tableau
             String[] dataArray = data.split(",") ;
             // Création des ressources dans le type "Resources"
-            Resources ressources = new Resources() ;
+            Resources ressourcesCost = new Resources() ;
+            ressourcesCost.setNbResource(Resource.DIAMOND, Integer.parseInt(dataArray[1]));
+            ressourcesCost.setNbResource(Resource.SAPPHIRE, Integer.parseInt(dataArray[2]));
+            ressourcesCost.setNbResource(Resource.EMERALD, Integer.parseInt(dataArray[3]));
+            ressourcesCost.setNbResource(Resource.RUBY, Integer.parseInt(dataArray[4]));
+
+            Resource ressourceTypes ;
+            switch(dataArray[7]){
+                case "DIAMOND" :
+                    ressourceTypes = Resource.DIAMOND ;
+                    break;
+                case "SAPPHIRE" :
+                    ressourceTypes = Resource.SAPPHIRE ;
+                    break;
+                case "EMERALD" :
+                    ressourceTypes = Resource.EMERALD ;
+                    break;
+                case "RUBY" :
+                    ressourceTypes = Resource.RUBY ;
+                    break;   
+                default :
+                    ressourceTypes = Resource.DIAMOND;  
+                    System.out.println("erreur de type");
+
+            }
             
             // ajout dans les 3 piles selons 3 cas, niveau 1, niveau 2, niveau 3
+            DevCard e = new DevCard(Integer.parseInt(dataArray[0]), ressourcesCost, Integer.parseInt(dataArray[6]), ressourceTypes) ;
             switch(dataArray[0]){
                 case "1" : 
-                    stack1.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ;
+                    stack1.add(e) ;
                 case "2" :
-                    stack2.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ; 
+                    stack2.add(e) ; 
                 case "3" :
-                    stack3.add(new DevCard(Integer.parseInt(dataArray[0]), ressources, Integer.parseInt(dataArray[6]), dataArray[7])) ;
+                    stack3.add(e) ;
             }
+
+            if(nbPlayer == 2){
+                
+            }
+        
         }
 
         // Mélange des piles
         Collections.shuffle(stack1) ; Collections.shuffle(stack1) ; Collections.shuffle(stack1) ;
         // ajout des stacks à l'attribut stackCards
         stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
+
+
+
+    }
+
+    public getNbResource(Resource e){
 
     }
 

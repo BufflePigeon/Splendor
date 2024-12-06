@@ -7,7 +7,7 @@ public class Resources {
         resources = new ArrayList<Integer>();
     }
 
-    public ArrayList getList(){
+    public ArrayList<Integer> getList(){
         return resources;
     }
 
@@ -42,7 +42,7 @@ public class Resources {
         resources.set(index, currentValue + valeur);
     }
 
-    public ArrayList getAvailableResources(){
+    public ArrayList<Resource> getAvailableResources(){
         ArrayList<Resource> res = new ArrayList<Resource>();
         for(Resource x: Resource.values()){
             if (this.getNbResource(x) > 0){
