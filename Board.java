@@ -86,8 +86,35 @@ public class Board implements Displayable {
 
     }
 
-    public getNbResource(Resource e){
+    public int getNbResource(Resource r){
+        return ressources.getNbResource(r) ;
+    }
 
+    public void setNbRessources(Resource r, int valeur){
+        ressources.setNbResource(r, valeur);
+    }
+
+    public void updateNbResource(Resource r,int valeur){
+        ressources.updateNbResource(r, valeur);
+    }
+
+    public ArrayList<String> getAvailableResouces(){
+        return getAvailableResouces() ;
+    }
+
+    public DevCard getCard(int tier, int colomn){
+        return visibleCard[tier][colomn] ;
+    }
+
+    public void updateCard(DevCard d){
+        int tier = d.getTier(); 
+        for(int i = 0; i< 3; i++){
+            if(visibleCard[tier][i].equals(d)){
+                visibleCard[tier][i] = stackCards.get(tier).pop() ;
+            }else{
+                continue ;
+            }
+        }
     }
 
     /* --- Stringers --- */
