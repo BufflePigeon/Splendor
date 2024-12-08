@@ -85,7 +85,26 @@ public class Board implements Displayable {
         // ajout des stacks à l'attribut stackCards
         stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
 
+        int nbGemTokens;
+        switch (nbPlayer) {
+            case 2:
+                nbGemTokens = 4;
+                break;
+            case 3:
+                nbGemTokens = 5;
+                break;
+            case 4:
+                nbGemTokens = 7;
+                break;
+            default:
+                throw new IllegalArgumentException("Nombre de joueurs invalide");
+        }
 
+        ressources.setNbResource(Resource.DIAMOND, nbGemTokens);
+        ressources.setNbResource(Resource.SAPPHIRE, nbGemTokens);
+        ressources.setNbResource(Resource.EMERALD, nbGemTokens);
+        ressources.setNbResource(Resource.RUBY, nbGemTokens);
+        ressources.setNbResource(Resource.ONYX, nbGemTokens);
 
     }
 
