@@ -14,7 +14,7 @@ public class PickSameTokensAction implements Action {
 
     
     public void process(Game game) {
-        board.canGiveSameToken(tokenType);
+        game.getBoard().canGiveSameTokens(tokenType);
     }
 
     

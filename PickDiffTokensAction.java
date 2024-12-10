@@ -1,4 +1,4 @@
-import java.util.ArrayList
+import java.util.ArrayList ;
 /**
  * Décrivez votre classe PickDiffTokensAction ici.
  *
@@ -6,25 +6,36 @@ import java.util.ArrayList
  * @version (un numéro de version ou une date)
  */
 public class PickDiffTokensAction implements Action {
-    private ArrayList<Resource> tokenTypes;
+    private Resources tokenTypes;
 
-    public PickDiffTokensAction(ArrayList<Resource> tokenTypes) {
-        if (tokenTypes.size() != 3) {
+    public PickDiffTokensAction(Resources tokenTypes) {
+        if (tokenTypes.getList().size() != 3) {
             throw new IllegalArgumentException("Il faut exactement trois types de ressources différents.");
         }
         this.tokenTypes = tokenTypes;
     }
 
     public void process(Game game) {
-        board.canGiveDiffToken(tokenTypes);
+        game.getBoard().canGiveDiffTokens(tokenTypes);
     }
 
     
     public String toString() {
-        String res = "Prendre trois jetons de ressources différentes :"
-        for (Resource ressource : tokenTypes)
-            res += " " + ressource
-        res += "."
-        return res
+        String res = "Prendre trois jetons de ressources différentes :" ;
+        for (Integer ressource : tokenTypes.getList())
+            switch(ressource){
+                case 0:
+                    res += " " + Resource.DIAMOND ;
+                case 1:
+                    res += " " + Resource.SAPPHIRE ;
+                case 2:
+                    res += " " + Resource.EMERALD ;
+                case 3:
+                    res += " " + Resource.RUBY ;
+                case 4:
+                    res += " " + Resource.ONYX ;
+            }
+        res += "." ;
+        return res ;
     }
 }

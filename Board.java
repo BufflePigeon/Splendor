@@ -163,10 +163,29 @@ public class Board implements Displayable {
         return ressources.getNbResource(r) > 4 ;
     }
 
-    public boolean canGiveDiffTokens(ArrayList<Resource> rs){
-        for(Resource r : rs){
-            if (ressources.getNbResource(r) > 1){
-                return false ;
+    public boolean canGiveDiffTokens(Resources rs){
+        for(Integer r : rs.getList()){
+            switch(r){
+                case 0:
+                    if(ressources.getNbResource(Resource.DIAMOND) < 1){
+                        return false ;
+                    }
+                case 1:
+                    if(ressources.getNbResource(Resource.SAPPHIRE) < 1){
+                        return false ;
+                    }
+                case 2:
+                    if(ressources.getNbResource(Resource.EMERALD) < 1){
+                        return false ;
+                    }
+                case 3:
+                    if(ressources.getNbResource(Resource.RUBY) < 1){
+                        return false ;
+                    }
+                case 4:
+                    if(ressources.getNbResource(Resource.ONYX) < 1){
+                        return false ;
+                    }
             }
         }
         return true ;
