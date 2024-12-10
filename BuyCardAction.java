@@ -6,19 +6,19 @@
  * @version (un numéro de version ou une date)
  */
 public class BuyCardAction implements Action {
-    private DevCard cardId;
+    private DevCard card;
 
-    public BuyCardAction(DevCard cardId) {
-        this.cardId = cardId;
+    public BuyCardAction(DevCard card) {
+        this.card = card;
     }
 
     
     public void process(Game game) {
-        ;
+        //drawcard();
     }
 
     
     public String toString() {
-        return "Acheter la carte avec l'ID : " + cardId;
+        return "Acheter la carte avec l'ID : " + card;
     }
 }

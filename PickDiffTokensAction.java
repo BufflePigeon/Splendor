@@ -16,7 +16,7 @@ public class PickDiffTokensAction implements Action {
     }
 
     public void process(Game game) {
-        ;
+        //canGiveDiffToken();
     }
 
     
