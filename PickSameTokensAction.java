@@ -6,9 +6,9 @@
  * @version (un numéro de version ou une date)
  */
 public class PickSameTokensAction implements Action {
-    private final String tokenType;
+    private  Resource tokenType;
 
-    public PickSameTokensAction(String tokenType) {
+    public PickSameTokensAction(Resource tokenType) {
         this.tokenType = tokenType;
     }
 
