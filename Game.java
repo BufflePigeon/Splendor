@@ -31,22 +31,14 @@
      public Game(int nbOfPlayers)throws IllegalArgumentException{
          if (nbOfPlayers<=2 || nbOfPlayers>4){
              throw new IllegalArgumentException("Le nombre de joueur doit être entre 2 et 4 joueurs inclus");
-         }else{
-             players = new ArrayList<>();
-             HumanPlayer1 = new HumanPlayer(); // voir implémentation du constructeur de la classe Player
-             players.add(HumanPlayer1);
-             
-             DumbRobotPlayer1 = new DumbRobotPlayer(); // voir implémentation du constructeur de la classe Player
-             players.add(DumbRobotPlayer1);
-             if (nbOfPlayers>2){ // Ajout d'un robot pour 3 joueurs ou plus
-                 DumbRobotPlayer2 = new DumbRobotPlayer(); // voir implémentation du constructeur de la classe Player
-                 players.add(DumbRobotPlayer2);
-             }
-             if (nbOfPlayers>3){ // Ajout d'un robot pour 4 joueurs
-                 DumbRobotPlayer3 = new DumbRobotPlayer(); // voir implémentation du constructeur de la classe Player
-                 players.add(DumbRobotPlayer3);
-             }
          }
+         players = new ArrayList<>();
+         players.add(new HumanPlayer(1, "Joueur 1"));
+         for (int i = 2; i <= nbOfPlayers; i++) {
+             players.add(new DumbRobotPlayer(i, "Robot " + i));
+         }
+         board = new Board(nbOfPlayers);
+         
      }
  
      public int getNbPlayers(){
@@ -71,7 +63,7 @@
      }
  
      public void play(){
-         while (isGameOver){
+         while (!isGameOver){
              for (Player player : players){
                  move(player);
                  discard(player);
@@ -101,7 +93,7 @@
          //Renvoie true si c'est la fin du jeu
          boolean res = false;
          for (Player player : players){
-             if (player.getPoints()>15){
+             if (player.getPoints()>=15){
                  res = true;
              }
          }
@@ -109,16 +101,29 @@
      }
  
      private void gameOver(){ //A faire : rajouter le cas d'égalité
-         int max = 0;
-         String nom_du_gagnant = null;
-         for (Player player : players){
-             if (player.getPoints()>max){
-                 max = player.getPoints();
-                 nom_du_gagnant = player.GetNom();
+         System.out.println("Partie terminée !");
+         int maxPoints = 0;
+         List<Player> winners = new ArrayList<>();
+         
+         for (Player player : players) {
+             if (player.getPoints() > maxPoints) {
+                 maxPoints = player.getPoints();
+                 winners.clear();
+                 winners.add(player);
+             } else if (player.getPoints() == maxPoints) {
+                 winners.add(player);
              }
          }
          
-         System.out.println("Le gagnant est " + nom_du_gagnant + " .");
+         if (winners.size() == 1) {
+             System.out.println("Félicitations au gagnant : " + winners.get(0).getName() + " avec " + maxPoints + " points !");
+         } else {
+             System.out.println("Égalité entre les joueurs suivants avec " + maxPoints + " points :");
+             for (Player winner : winners) {
+                 System.out.println("- " + winner.getName());
+             }
+         }
+ 
      }
  
  
