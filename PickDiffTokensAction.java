@@ -16,11 +16,15 @@ public class PickDiffTokensAction implements Action {
     }
 
     public void process(Game game) {
-        //canGiveDiffToken();
+        board.canGiveDiffToken(tokenTypes);
     }
 
     
     public String toString() {
-        return "Prendre trois jetons de ressources différentes : " + String.join(", ", tokenTypes);
+        String res = "Prendre trois jetons de ressources différentes :"
+        for (Resource ressource : tokenTypes)
+            res += " " + ressource
+        res += "."
+        return res
     }
 }

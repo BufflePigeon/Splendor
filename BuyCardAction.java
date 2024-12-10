@@ -14,7 +14,7 @@ public class BuyCardAction implements Action {
 
     
     public void process(Game game) {
-        //drawcard();
+        board.drawcard();
     }
 
     
