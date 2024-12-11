@@ -44,7 +44,7 @@ public abstract class Player implements Displayable {
         return resources.getAvailableResources();
     }
     
-    public int getResFromCards(Resource ressource){ //a essayer (pas sur pour le if)
+    public int getResFromCards(Resource ressource){
         int somme = 0;
         for (DevCard card : purchasedCards){
             if (card.getResourceType()==ressource){
@@ -66,7 +66,7 @@ public abstract class Player implements Displayable {
         purchasedCards.add(carte);
     }
     
-    public boolean canBuyCard(DevCard carte){ //A voir pour la condition foireuse
+    public boolean canBuyCard(DevCard carte){
         Resources cost=carte.getCost();
         for (int i=0; i<=cost.getList().size(); i++){
             if (cost.getList().get(i)>resources.getList().get(i)){
