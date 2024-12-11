@@ -67,7 +67,7 @@ public class Game {
     }
 
     public void play(){
-        while (!isGameOver){
+        while (!isGameOver()){
             for (Player player : players){
                 move(player);
                 discard(player);
@@ -75,15 +75,11 @@ public class Game {
         }
             
     }
-
+    public void discard(Player player){
+        
+    }
     private void move(Player player){
-        if (player.chooseAction == 1){
-            ;
-        }else if (player.chooseAction == 2){
-            ;
-        }else if (player.chooseAction == 3){
-            ;
-        }
+        chooseAction(board);
     }
 
     private void discardToken(Player player){

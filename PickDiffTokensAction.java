@@ -6,25 +6,27 @@ import java.util.ArrayList ;
  * @version (un numéro de version ou une date)
  */
 public class PickDiffTokensAction implements Action {
-    private Resources tokenTypes;
+    private ArrayList<Resource> tokenTypes;
 
-    public PickDiffTokensAction(Resources tokenTypes) {
-        if (tokenTypes.getList().size() != 3) {
+    public PickDiffTokensAction(ArrayList<Resource> tokenTypes) {
+        if (tokenTypes.size() != 3) {
             throw new IllegalArgumentException("Il faut exactement trois types de ressources différents.");
         }
         this.tokenTypes = tokenTypes;
     }
 
-    public void process(Game game) {
-        game.getBoard().canGiveDiffTokens(tokenTypes);
+    public void process(Board board) {
+        for (Resource ressource : tokenTypes){
+            board.getNbResource(ressource);
+        }
     }
 
     
     public String toString() {
         String res = "Prendre trois jetons de ressources différentes :" ;
-        for (Integer ressource : tokenTypes.getList())
+        for (Resource ressource : tokenTypes)
             switch(ressource){
-                case 0:
+                case 0:// à changer
                     res += " " + Resource.DIAMOND ;
                 case 1:
                     res += " " + Resource.SAPPHIRE ;

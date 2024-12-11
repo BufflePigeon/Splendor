@@ -8,7 +8,7 @@
 public class PassAction implements Action {
 
     
-    public void process(Game game) {
+    public void process(Board board) {
         ;
     }
 
