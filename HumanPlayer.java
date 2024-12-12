@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class HumanPlayer extends Player{
+public class HumanPlayer extends Player implements Displayable{
     
     public HumanPlayer(int id, String nom){
         
@@ -33,12 +33,12 @@ public class HumanPlayer extends Player{
             chooseManyRes(board);
         } else {
             PassAction action4 = new PassAction();
-            action4.process();
+            action4.process(board,this);
         }
-        check_jetons();
+        chooseDiscardingTokens(board);
     }
     
-    public void check_jetons(){
+    public void chooseDiscardingTokens(Board board){
         while (super.getNbTokens()>10){
             Game.display.out.println("Vous avez trop de jetons ("+super.getNbTokens()+"), saisissez une ressource que vous voulez jeter.");
             Game.display.out.println("Saisir 1 pour jeter: diamants");
@@ -50,7 +50,7 @@ public class HumanPlayer extends Player{
             String choix = s.nextLine();
             if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>5){
             throw new InvalideChoiceException("Votre choix doit être compris entre 1 et 5.");
-            check_jetons();
+            chooseDiscardingTokens(board);
             }
             if(Integer.valueOf(choix)==1){
                 if (super.getNbResource(Resource.values()[0])>0){
@@ -64,7 +64,7 @@ public class HumanPlayer extends Player{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de diamants");
-                    check_jetons();
+                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==2){
@@ -79,7 +79,7 @@ public class HumanPlayer extends Player{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de saphirs");
-                    check_jetons();
+                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==3){
@@ -94,7 +94,7 @@ public class HumanPlayer extends Player{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas d'émeraudes");
-                    check_jetons();
+                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==4){
@@ -109,7 +109,7 @@ public class HumanPlayer extends Player{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de rubis");
-                    check_jetons();
+                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==5){
@@ -124,7 +124,7 @@ public class HumanPlayer extends Player{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas d'onix");
-                    check_jetons();
+                    chooseDiscardingTokens(board);
                 }
             }
         }   
@@ -150,8 +150,8 @@ public class HumanPlayer extends Player{
             chooseCard(board);
         }
         if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)])){
-            BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)]);
-            action1.process(board , Integer.valueOf(choix1),Integer.valueOf(choix2));
+            BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)],Integer.valueOf(choix1),Integer.valueOf(choix2));
+            action1.process(board , this);
         } else {
             chooseAction(board);
         }
@@ -177,7 +177,7 @@ public class HumanPlayer extends Player{
         if (board.getNbResource(Resource.values()[Integer.valueOf(choix)])>3){
             
             PickSameTokensAction action2 = new PickSameTokensAction(Resource.values()[Integer.valueOf(choix)]);
-            action2.process(board);
+            action2.process(board,this);
         } else {
             throw new InsufficientResourceException("Le nombre de ces jetons restants est inférieur à 4");
             chooseAction(board);
@@ -238,7 +238,7 @@ public class HumanPlayer extends Player{
         Game.display.out.println("Souhaitez vous 1 jeton rubis ? ");
         if (liste_choix.size()==3){
             PickDiffTokensAction action3 = new PickDiffTokensAction(liste_choix);
-            action3.process(board);
+            action3.process(board,this);
         }
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
@@ -256,7 +256,7 @@ public class HumanPlayer extends Player{
         Game.display.out.println("Souhaitez vous 1 jeton onix ? ");
         if (liste_choix.size()==3){
             PickDiffTokensAction action3 = new PickDiffTokensAction(liste_choix);
-            action3.process(board);
+            action3.process(board,this);
         }
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
@@ -273,7 +273,7 @@ public class HumanPlayer extends Player{
         }
         if (liste_choix.size()==3){
             PickDiffTokensAction action3 = new PickDiffTokensAction(liste_choix);
-            action3.process(board);
+            action3.process(board,this);
         } else {
             throw new InvalidResourceException("Vous n'avez pas saisis trois ressources au total");
             chooseAction(board);

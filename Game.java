@@ -86,7 +86,7 @@ public class Game {
     private void discardToken(Player player){
         
         while (player.getNbTokens()>10){
-            player.chooseDiscardingTokens();
+            player.chooseDiscardingTokens(getBoard());
         }
     }
 
