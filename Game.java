@@ -4,7 +4,6 @@
 * @since       1.0
 */
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Game {
@@ -71,9 +70,10 @@ public class Game {
         while (!isGameOver()){
             for (Player player : players){
                 move(player);
-                discard(player);
+                discardToken(player);
             }
         }
+        gameOver();
             
     }
     public void discard(Player player){
@@ -86,7 +86,7 @@ public class Game {
     private void discardToken(Player player){
         
         while (player.getNbTokens()>10){
-            player.chooseDiscardingTokens();
+            player.chooseDiscardingTokens(board);
         }
     }
 
@@ -101,7 +101,7 @@ public class Game {
         return res; 
     }
 
-    private void gameOver(){ 
+    public void gameOver(){ 
         System.out.println("Partie terminée !");
         int maxPoints = 0;
         List<Player> winners = new ArrayList<>();
