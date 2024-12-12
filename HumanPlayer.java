@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class HumanPlayer extends Player implements Displayable{
+public class HumanPlayer extends Player{
     
     public HumanPlayer(int id, String nom){
         
@@ -21,9 +21,9 @@ public class HumanPlayer extends Player implements Displayable{
         Game.display.out.println("Entrez 4 : Passez votre tour");
         Scanner s = new Scanner(System.in);
         String choix = s.nextLine();
+        s.close() ;
         if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>4){
             throw new InvalideChoiceException("Votre réponse n'est pas comprise entre 0 et 4.");
-            chooseAction(board);
         }
         if (Integer.valueOf(choix)==1){
             chooseCard(board);
@@ -36,6 +36,7 @@ public class HumanPlayer extends Player implements Displayable{
             action4.process(board,this);
         }
         chooseDiscardingTokens(board);
+        return Integer.valueOf(choix) ;
     }
     
     public void chooseDiscardingTokens(Board board){
@@ -48,9 +49,9 @@ public class HumanPlayer extends Player implements Displayable{
             Game.display.out.println("Saisir 5 pour jeter: onyx");
             Scanner s = new Scanner(System.in);
             String choix = s.nextLine();
+            s.close() ;
             if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>5){
-            throw new InvalideChoiceException("Votre choix doit être compris entre 1 et 5.");
-            chooseDiscardingTokens(board);
+                throw new InvalideChoiceException("Votre choix doit être compris entre 1 et 5.");
             }
             if(Integer.valueOf(choix)==1){
                 if (super.getNbResource(Resource.values()[0])>0){
@@ -64,7 +65,6 @@ public class HumanPlayer extends Player implements Displayable{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de diamants");
-                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==2){
@@ -79,7 +79,7 @@ public class HumanPlayer extends Player implements Displayable{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de saphirs");
-                    chooseDiscardingTokens(board);
+        
                 }
             }
             if(Integer.valueOf(choix)==3){
@@ -94,7 +94,6 @@ public class HumanPlayer extends Player implements Displayable{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas d'émeraudes");
-                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==4){
@@ -109,7 +108,6 @@ public class HumanPlayer extends Player implements Displayable{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas de rubis");
-                    chooseDiscardingTokens(board);
                 }
             }
             if(Integer.valueOf(choix)==5){
@@ -124,7 +122,6 @@ public class HumanPlayer extends Player implements Displayable{
         
                 } else {
                     throw new InsufficientResourceException("Vous n'avez pas d'onix");
-                    chooseDiscardingTokens(board);
                 }
             }
         }   
@@ -139,15 +136,15 @@ public class HumanPlayer extends Player implements Displayable{
         Scanner s = new Scanner(System.in);
         System.out.println("Saisissez la ligne (entre 1 et 3)");
         String choix1 = s.nextLine();
+        s.close() ;
         if (Integer.valueOf(choix1)<1 || Integer.valueOf(choix1)>3){
             throw new InvalideChoiceException("Votre x doit être compris entre 1 et 3 (le numéro de la ligne). Veuillez ressaisir votre x.");
-            chooseCard(board);
         }
         System.out.println("Saisissez la colonne (entre 1 et 4)");
         String choix2 = s.nextLine();
         if (Integer.valueOf(choix2)<1 || Integer.valueOf(choix2)>4){
             throw new InvalideChoiceException("Votre y doit être compris entre 1 et 4 (le numéro de la colonne). Veuillez ressaisir le tout (x et y).");
-            chooseCard(board);
+
         }
         if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)])){
             BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)],Integer.valueOf(choix1),Integer.valueOf(choix2));
@@ -169,7 +166,7 @@ public class HumanPlayer extends Player implements Displayable{
         String choix = s.nextLine();
         if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>6){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 1 et 6.");
-            chooseUniqueRes(board);
+
         }
         if(Integer.valueOf(choix)==6){
             chooseAction(board);
@@ -180,7 +177,7 @@ public class HumanPlayer extends Player implements Displayable{
             action2.process(board,this);
         } else {
             throw new InsufficientResourceException("Le nombre de ces jetons restants est inférieur à 4");
-            chooseAction(board);
+
         }
         
     }
@@ -195,7 +192,7 @@ public class HumanPlayer extends Player implements Displayable{
         String choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 0 et 2.");
-            chooseManyRes(board);
+
         }
         if(Integer.valueOf(choix)==2){
             chooseAction(board);
@@ -210,7 +207,7 @@ public class HumanPlayer extends Player implements Displayable{
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 0 et 2.");
-            chooseManyRes(board);
+
         }
         if(Integer.valueOf(choix)==2){
             chooseAction(board);
@@ -225,7 +222,7 @@ public class HumanPlayer extends Player implements Displayable{
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 0 et 2.");
-            chooseManyRes(board);
+
         }
         if(Integer.valueOf(choix)==2){
             chooseAction(board);
@@ -243,7 +240,7 @@ public class HumanPlayer extends Player implements Displayable{
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 0 et 2.");
-            chooseManyRes(board);
+
         }
         if(Integer.valueOf(choix)==2){
             chooseAction(board);
@@ -261,7 +258,7 @@ public class HumanPlayer extends Player implements Displayable{
         choix = s.nextLine();
         if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
             throw new InvalideChoiceException("Vous devez saisir un chiffre entre 0 et 2.");
-            chooseManyRes(board);
+  
         }
         if(Integer.valueOf(choix)==2){
             chooseAction(board);
@@ -276,7 +273,7 @@ public class HumanPlayer extends Player implements Displayable{
             action3.process(board,this);
         } else {
             throw new InvalidResourceException("Vous n'avez pas saisis trois ressources au total");
-            chooseAction(board);
+
         }
     }
 }

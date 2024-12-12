@@ -21,7 +21,7 @@ public class Game {
     private Board board;
     private List<Player> players;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
         Game game = new Game(2);
@@ -29,7 +29,7 @@ public class Game {
         display.close();
     }
 
-    public Game(int nbOfPlayers)throws IllegalArgumentException{
+    public Game(int nbOfPlayers)throws IllegalArgumentException, FileNotFoundException{
         if (nbOfPlayers<=2 || nbOfPlayers>4){
             throw new IllegalArgumentException("Le nombre de joueur doit être entre 2 et 4 joueurs inclus");
         }
