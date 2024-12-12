@@ -18,6 +18,7 @@ public class PickDiffTokensAction implements Action {
     public void process(Board board) {
         for (Resource ressource : tokenTypes){
             board.getNbResource(ressource);
+            board.updateNbResource(ressource, -1);
         }
     }
 
@@ -26,15 +27,15 @@ public class PickDiffTokensAction implements Action {
         String res = "Prendre trois jetons de ressources différentes :" ;
         for (Resource ressource : tokenTypes)
             switch(ressource){
-                case 0:// à changer
+                case DIAMOND:// à changer
                     res += " " + Resource.DIAMOND ;
-                case 1:
+                case SAPPHIRE:
                     res += " " + Resource.SAPPHIRE ;
-                case 2:
+                case EMERALD:
                     res += " " + Resource.EMERALD ;
-                case 3:
+                case RUBY:
                     res += " " + Resource.RUBY ;
-                case 4:
+                case ONYX:
                     res += " " + Resource.ONYX ;
             }
         res += "." ;

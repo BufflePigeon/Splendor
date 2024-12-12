@@ -13,8 +13,8 @@ public class BuyCardAction implements Action {
     }
 
     
-    public void process(Game game) {
-        game.getBoard().drawcard();
+    public void process(Board board, int tier, int colomn) {
+        board.getCard(tier, colomn);
     }
 
     

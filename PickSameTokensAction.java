@@ -15,6 +15,7 @@ public class PickSameTokensAction implements Action {
     
     public void process(Board board) {
         board.getNbResource(tokenType);
+        board.updateNbResource(tokenType, -3);
 
     }
 
