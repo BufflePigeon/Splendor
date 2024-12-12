@@ -40,7 +40,7 @@ public abstract class Player implements Displayable {
         return resources.getNbResource(ressource);
     }
     
-    public ArrayList getAvailableResources(){
+    public ArrayList<Resource> getAvailableResources(){
         return resources.getAvailableResources();
     }
     
@@ -65,7 +65,9 @@ public abstract class Player implements Displayable {
     public void addPurchasedCard(DevCard carte){
         purchasedCards.add(carte);
     }
-    
+    public abstract int chooseAction(Board board);
+    public abstract ArrayList<Resource> chooseDiscardingTokens(Board board); //Type de retour?
+
     public boolean canBuyCard(DevCard carte){
         Resources cost=carte.getCost();
         for (int i=0; i<=cost.getList().size(); i++){
