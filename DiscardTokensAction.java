@@ -3,8 +3,8 @@ import java.util.ArrayList;
 /**
  * Décrivez votre classe DiscardTokensAction ici.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Julien
+ * @version 1.1
  */
 public class DiscardTokensAction implements Action {
     private ArrayList<Resource> tokens;
@@ -14,9 +14,10 @@ public class DiscardTokensAction implements Action {
     }
 
     
-    public void process(Board board) {
+    public void process(Board board, Player player) {
         for (Resource ressource : tokens){
             board.updateNbResource(ressource, 1);
+            player.updateNbResource(ressource, -1);
         };
     }
 

@@ -15,10 +15,11 @@ public class PickDiffTokensAction implements Action {
         this.tokenTypes = tokenTypes;
     }
 
-    public void process(Board board) {
+    public void process(Board board, Player player) {
         for (Resource ressource : tokenTypes){
             board.getNbResource(ressource);
             board.updateNbResource(ressource, -1);
+            player.updateNbResource(ressource, 1);
         }
     }
 

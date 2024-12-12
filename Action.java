@@ -9,7 +9,7 @@ public interface Action {
     /**
 
      */
-    void process(Game game);
+    void process(Board board, Player player);
 
     /**
 
