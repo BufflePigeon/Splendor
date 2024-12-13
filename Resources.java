@@ -13,6 +13,7 @@ public class Resources {
 
     public int getNbResource(Resource elt) {
         int index = elt.ordinal();
+        System.out.println(resources.size()) ;
         if (index >= resources.size()) {
             throw new InvalidResourceException("La ressource " + elt + " n'est pas valide ou non initialisée.");
         }
@@ -30,7 +31,6 @@ public class Resources {
             resources.add(valeur) ;
         }
         resources.set(index, valeur);
-        System.out.println(resources.get(index));
     }
 
     public void updateNbResource(Resource elt, int valeur) {

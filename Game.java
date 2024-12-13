@@ -6,7 +6,6 @@
 
 import java.util.*;
 import java.io.FileNotFoundException;
-import java.util.*; 
 
 public class Game {
     /* L'affichage et la lecture d'entrée avec l'interface de jeu se fera entièrement via l'attribut display de la classe Game.

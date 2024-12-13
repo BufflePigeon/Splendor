@@ -43,6 +43,7 @@ public class Board implements Displayable {
             ressourcesCost.setNbResource(Resource.SAPPHIRE, Integer.parseInt(dataArray[2]));
             ressourcesCost.setNbResource(Resource.EMERALD, Integer.parseInt(dataArray[3]));
             ressourcesCost.setNbResource(Resource.RUBY, Integer.parseInt(dataArray[4]));
+            ressourcesCost.setNbResource(Resource.ONYX, Integer.parseInt(dataArray[5]));
 
             Resource ressourceTypes ;
             switch(dataArray[7]){
