@@ -20,8 +20,7 @@ public class HumanPlayer extends Player implements Displayable{
         Game.display.out.println("Entrez 3 : Prendre trois jetons de types de ressources differents");
         Game.display.out.println("Entrez 4 : Passez votre tour");
         Scanner s = new Scanner(System.in);
-        String choix = s.nextLine();
-        s.close();
+        int choix = s.nextInt();
         if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>4){
             Game.display.out.println("Erreur : Votre réponse n'est pas comprise entre 0 et 4.");
             chooseAction(board);
@@ -93,7 +92,7 @@ public class HumanPlayer extends Player implements Displayable{
             Game.display.out.println("Erreur : Votre y doit être compris entre 1 et 4 (le numéro de la colonne). Veuillez ressaisir le tout (x et y).");
             chooseCard(board);
         }
-        if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)])){
+        if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)-1][Integer.valueOf(choix2)-1])){
             BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)],Integer.valueOf(choix1),Integer.valueOf(choix2));
             action1.process(board , this);
         } else {
@@ -143,7 +142,7 @@ public class HumanPlayer extends Player implements Displayable{
             }
             if(Integer.valueOf(choix)==2){
                 chooseAction(board);
-                break;
+                return;
             }else {
                 if (Integer.valueOf(choix)==1){
                     nb_max_choisis=nb_max_choisis - 1;

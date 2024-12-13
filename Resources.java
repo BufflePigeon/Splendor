@@ -5,6 +5,9 @@ public class Resources {
 
     public Resources() {
         resources = new ArrayList<Integer>();
+        for (int i=0; i<5;i++){
+            resources.add(0);
+        }
     }
 
     public ArrayList<Integer> getList(){
