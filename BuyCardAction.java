@@ -13,11 +13,25 @@ public class BuyCardAction implements Action {
 
     public BuyCardAction(DevCard card, int tier, int colomn) {
         this.card = card;
+        this.tier = tier;
+        this.colomn=colomn;
     }
 
     
     public void process(Board board, Player player) {
-        board.getCard(tier, colomn);
+        if (player.canBuyCard(card)){
+            player.addPurchasedCard(card);
+            int i = 0;
+            for (int res : card.getCost()){
+                player.updateNbResource(Resource.values()[i],-res);
+                i++;
+            }
+            player.updatePoints(card.getPoints());
+            // A compléter : enlever la carte des cartes visibles et ajouter la prochaine
+        } else {
+            Game.display.out.println("Pas assez de ressources pour acheter la carte !");
+        }
+        
     }
 
     
