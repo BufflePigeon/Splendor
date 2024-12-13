@@ -66,7 +66,7 @@ public abstract class Player implements Displayable {
         purchasedCards.add(carte);
     }
     
-    public abstract int chooseAction(Board board);
+    public abstract void chooseAction(Board board);
     public abstract void chooseDiscardingTokens(Board board); //Type de retour?
 
     public boolean canBuyCard(DevCard carte){

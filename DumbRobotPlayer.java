@@ -6,19 +6,19 @@ import java.util.ArrayList;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class DumbRobotPlayer extends Player
+public class DumbRobotPlayer extends Player implements Displayable
 {
     public DumbRobotPlayer(int id, String nom){
         super(id,nom);
     }
-    public int chooseAction(Board board){ // pas vraiment du tout sur
+    public void chooseAction(Board board){ 
         ArrayList<Resource> liste_res = new ArrayList<Resource>();
         for (int i=0;i<3;i++){
             for (int j=0;j<4;j++){
                 if (super.canBuyCard(board.getVisibleCards()[i][j])){
                     BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[i][j],i,j);
                     action1.process(board , this);
-                    return 0;
+                    return;
                 }
             }
         }
@@ -26,7 +26,7 @@ public class DumbRobotPlayer extends Player
             if (board.getNbResource(res)>3){
                 PickSameTokensAction action2 = new PickSameTokensAction(res);
                 action2.process(board,this);
-                return 0;
+                return;
             }
         }
         for (Resource res: Resource.values()){
@@ -36,13 +36,13 @@ public class DumbRobotPlayer extends Player
             if (liste_res.size()==3){
                 PickDiffTokensAction action3 = new PickDiffTokensAction(liste_res);
                 action3.process(board,this);
-                return 0;
+                return;
             }
         }
         
         PassAction action4 = new PassAction();
         action4.process(board,this);
-        return 0;
+        return;
     }
     public void chooseDiscardingTokens(Board board){
         while (super.getNbTokens()>10){
