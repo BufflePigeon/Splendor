@@ -67,11 +67,11 @@ public abstract class Player implements Displayable {
     }
     
     public abstract void chooseAction(Board board);
-    public abstract void chooseDiscardingTokens(Board board); //Type de retour?
+    public abstract void chooseDiscardingTokens(Board board);
 
     public boolean canBuyCard(DevCard carte){
         Resources cost=carte.getCost();
-        for (int i=0; i<=cost.getList().size(); i++){
+        for (int i=0; i<cost.getList().size(); i++){
             if (cost.getList().get(i)>resources.getList().get(i)){
                 return false;
             }
