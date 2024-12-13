@@ -72,10 +72,13 @@ public class Board implements Displayable {
             switch(dataArray[0]){
                 case "1" : 
                     stack1.add(e) ;
+                    break ;
                 case "2" :
                     stack2.add(e) ; 
+                    break ;
                 case "3" :
                     stack3.add(e) ;
+                    break ;
             }
 
             if(nbPlayer == 2){
@@ -87,9 +90,9 @@ public class Board implements Displayable {
         
         stackCards = new ArrayList<>() ;
         // Mélange des piles
-        Collections.shuffle(stack1) ; Collections.shuffle(stack1) ; Collections.shuffle(stack1) ;
+        Collections.shuffle(stack3) ; Collections.shuffle(stack2) ; Collections.shuffle(stack1) ;
         // ajout des stacks à l'attribut stackCards
-        stackCards.add(stack3) ; stackCards.add(stack2) ; stackCards.add(stack1) ;
+        stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
 
         int nbGemTokens;
         switch (nbPlayer) {
