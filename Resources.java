@@ -30,6 +30,7 @@ public class Resources {
             resources.add(valeur) ;
         }
         resources.set(index, valeur);
+        System.out.println(resources.get(index));
     }
 
     public void updateNbResource(Resource elt, int valeur) {

@@ -88,7 +88,7 @@ public class Board implements Displayable {
         // Mélange des piles
         Collections.shuffle(stack1) ; Collections.shuffle(stack1) ; Collections.shuffle(stack1) ;
         // ajout des stacks à l'attribut stackCards
-        stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
+        stackCards.add(stack3) ; stackCards.add(stack2) ; stackCards.add(stack1) ;
 
         int nbGemTokens;
         switch (nbPlayer) {
@@ -106,12 +106,28 @@ public class Board implements Displayable {
         }
     
         ressources = new Resources() ;
-        
+        // initialisation des ressources
         ressources.setNbResource(Resource.DIAMOND, nbGemTokens);
         ressources.setNbResource(Resource.SAPPHIRE, nbGemTokens);
         ressources.setNbResource(Resource.EMERALD, nbGemTokens);
         ressources.setNbResource(Resource.RUBY, nbGemTokens);
         ressources.setNbResource(Resource.ONYX, nbGemTokens);
+        System.out.println(ressources.getList().size());
+        
+        visibleCards = new DevCard[3][4] ;
+        // initialisation des visible cards
+        visibleCards[0][0] = stack1.pop() ;
+        visibleCards[0][1] = stack1.pop() ;
+        visibleCards[0][2] = stack1.pop() ;
+        visibleCards[1][3] = stack2.pop() ;
+        visibleCards[1][0] = stack2.pop() ;
+        visibleCards[1][1] = stack2.pop() ;
+        visibleCards[1][2] = stack2.pop() ;
+        visibleCards[2][3] = stack3.pop() ;
+        visibleCards[2][0] = stack3.pop() ;
+        visibleCards[2][1] = stack3.pop() ;
+        visibleCards[2][2] = stack3.pop() ;
+        visibleCards[2][3] = stack3.pop() ;
 
     }
 
@@ -212,7 +228,7 @@ public class Board implements Displayable {
          * └────────┘ │
          *  ╲________╲│
          */
-        int nbCards = stackCards.get(tier).size(); //- AREMPLEACER par le nombre de cartes présentes
+        int nbCards = stackCards.get(tier - 1).size(); //- AREMPLEACER par le nombre de cartes présentes
         String[] deckStr = {"\u250C\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510  ",
                             "\u2502        \u2502\u2572 ",
                             "\u2502 reste: \u2502 \u2502",
@@ -250,7 +266,7 @@ public class Board implements Displayable {
 
         //Card display
         String[] cardDisplay = Display.emptyStringArray(0, 0);
-        for(int i = 0; i< 4; i ++){ //-- parcourir les différents niveaux de carte (i)
+        for(int i = 0; i< 3; i ++){ //-- parcourir les différents niveaux de carte (i)
             String[] tierCardsDisplay = Display.emptyStringArray(8, 0);
             for(int j = 0; j < 4 ; j++){ //-- parcourir les 4 cartes faces visibles pour un niveau donné (j)
                 tierCardsDisplay = Display.concatStringArray(tierCardsDisplay, visibleCards[i][j]!=null ? visibleCards[i][j].toStringArray() : DevCard.noCardStringArray(), false);

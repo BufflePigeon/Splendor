@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class HumanPlayer extends Player{
     
     public HumanPlayer(int id, String nom){
-        
         super(id,nom);
     }
     public int chooseAction(Board board){ // pas vraiment du tout sur
@@ -136,22 +135,23 @@ public class HumanPlayer extends Player{
         Scanner s = new Scanner(System.in);
         System.out.println("Saisissez la ligne (entre 1 et 3)");
         String choix1 = s.nextLine();
-        s.close() ;
         if (Integer.valueOf(choix1)<1 || Integer.valueOf(choix1)>3){
+            s.close() ;
             throw new InvalideChoiceException("Votre x doit être compris entre 1 et 3 (le numéro de la ligne). Veuillez ressaisir votre x.");
         }
         System.out.println("Saisissez la colonne (entre 1 et 4)");
         String choix2 = s.nextLine();
         if (Integer.valueOf(choix2)<1 || Integer.valueOf(choix2)>4){
+            s.close() ;
             throw new InvalideChoiceException("Votre y doit être compris entre 1 et 4 (le numéro de la colonne). Veuillez ressaisir le tout (x et y).");
-
         }
-        if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)])){
+        if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1) - 1][Integer.valueOf(choix2) - 1])){
             BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)][Integer.valueOf(choix2)],Integer.valueOf(choix1),Integer.valueOf(choix2));
             action1.process(board , this);
         } else {
             chooseAction(board);
         }
+        s.close() ;
     }
     
     public void chooseUniqueRes(Board board){
@@ -179,7 +179,7 @@ public class HumanPlayer extends Player{
             throw new InsufficientResourceException("Le nombre de ces jetons restants est inférieur à 4");
 
         }
-        
+        s.close() ;
     }
     public void chooseManyRes(Board board){
         ArrayList<Resource> liste_choix= new ArrayList<Resource>();

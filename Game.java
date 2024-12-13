@@ -5,7 +5,7 @@
 */
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.*; 
 
 public class Game {
     /* L'affichage et la lecture d'entrée avec l'interface de jeu se fera entièrement via l'attribut display de la classe Game.
@@ -24,7 +24,8 @@ public class Game {
     public static void main(String[] args) throws FileNotFoundException {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
-        Game game = new Game(Integer.parseInt(args[0]));
+        //Game game = new Game(Integer.parseInt(args[0]));
+        Game game = new Game(2);
         game.play();
         display.close();
     }
@@ -39,7 +40,6 @@ public class Game {
             players.add(new DumbRobotPlayer(i, "Robot " + i));
         }
         board = new Board(nbOfPlayers);
-        
     }
 
     public int getNbPlayers(){
@@ -70,6 +70,7 @@ public class Game {
     public void play(){
         while (!isGameOver()){
             for (Player player : players){
+                this.display(getNbPlayers()) ;
                 move(player);
                 discard(player);
             }
