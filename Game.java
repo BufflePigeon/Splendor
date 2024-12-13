@@ -72,6 +72,7 @@ public class Game {
             for (Player player : players){
                 this.display(getNbPlayers()) ;
                 move(player);
+                this.display(getNbPlayers()) ;
                 discardToken(player);
             }
         }

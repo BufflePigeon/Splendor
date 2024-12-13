@@ -113,22 +113,22 @@ public class Board implements Displayable {
         ressources.setNbResource(Resource.EMERALD, nbGemTokens);
         ressources.setNbResource(Resource.RUBY, nbGemTokens);
         ressources.setNbResource(Resource.ONYX, nbGemTokens);
-        System.out.println(ressources.getList().size());
         
         visibleCards = new DevCard[3][4] ;
         // initialisation des visible cards
         visibleCards[0][0] = stack1.pop() ;
         visibleCards[0][1] = stack1.pop() ;
         visibleCards[0][2] = stack1.pop() ;
-        visibleCards[1][3] = stack2.pop() ;
+        visibleCards[0][3] = stack1.pop() ;
         visibleCards[1][0] = stack2.pop() ;
         visibleCards[1][1] = stack2.pop() ;
         visibleCards[1][2] = stack2.pop() ;
-        visibleCards[2][3] = stack3.pop() ;
+        visibleCards[1][3] = stack2.pop() ;
         visibleCards[2][0] = stack3.pop() ;
         visibleCards[2][1] = stack3.pop() ;
         visibleCards[2][2] = stack3.pop() ;
         visibleCards[2][3] = stack3.pop() ;
+        
 
     }
 
