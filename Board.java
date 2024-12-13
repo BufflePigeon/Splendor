@@ -22,18 +22,21 @@ public class Board implements Displayable {
         Stack<DevCard> stack2 = new Stack<>() ;
         Stack<DevCard> stack3 = new Stack<>() ;
 
-        
         // Création d'un type File compatible avec la classe Scanner pour utiliser le bon constructeur (pathname:)
         File file = new File("stats.csv") ;
         // Lecture du fichier CSV grâce à la class Scanner
-        Scanner csv = new Scanner(file) ;
-
+        Scanner csv = new Scanner(file, "UTF-8") ;
+        csv.nextLine() ;
+        
         // Traitement des 99 lignes du fichier CSV
-        while(csv.hasNextLine()){
+        while(csv.hasNextLine()){          
             // Passage à la nouvelle ligne
-            String data = csv.next() ;
+            String data = csv.nextLine() ;
             // division de la ligne par les virgules dans un tableau
             String[] dataArray = data.split(",") ;
+            if (dataArray[7].equals("NOBLE")){
+                continue ;
+            }
             // Création des ressources dans le type "Resources"
             Resources ressourcesCost = new Resources() ;
             ressourcesCost.setNbResource(Resource.DIAMOND, Integer.parseInt(dataArray[1]));
@@ -54,10 +57,12 @@ public class Board implements Displayable {
                     break;
                 case "RUBY" :
                     ressourceTypes = Resource.RUBY ;
-                    break;   
+                    break; 
+                case "ONYX" :
+                    ressourceTypes = Resource.ONYX ;
+                    break ;
                 default :
-                    ressourceTypes = Resource.DIAMOND;  
-                    System.out.println("erreur de type");
+                    throw new IllegalArgumentException("Type de ressource inconnu: " + dataArray[7]);
 
             }
             
@@ -76,10 +81,10 @@ public class Board implements Displayable {
                 
             }
 
-            csv.close() ;
-        
         }
-
+        csv.close() ;
+        
+        stackCards = new ArrayList<>() ;
         // Mélange des piles
         Collections.shuffle(stack1) ; Collections.shuffle(stack1) ; Collections.shuffle(stack1) ;
         // ajout des stacks à l'attribut stackCards
@@ -99,7 +104,9 @@ public class Board implements Displayable {
             default:
                 throw new IllegalArgumentException("Nombre de joueurs invalide");
         }
-
+    
+        ressources = new Resources() ;
+        
         ressources.setNbResource(Resource.DIAMOND, nbGemTokens);
         ressources.setNbResource(Resource.SAPPHIRE, nbGemTokens);
         ressources.setNbResource(Resource.EMERALD, nbGemTokens);

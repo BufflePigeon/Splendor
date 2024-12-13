@@ -65,8 +65,9 @@ public abstract class Player implements Displayable {
     public void addPurchasedCard(DevCard carte){
         purchasedCards.add(carte);
     }
+    
     public abstract int chooseAction(Board board);
-    public abstract ArrayList<Resource> chooseDiscardingTokens(Board board); //Type de retour?
+    public abstract void chooseDiscardingTokens(Board board); //Type de retour?
 
     public boolean canBuyCard(DevCard carte){
         Resources cost=carte.getCost();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class DumbRobotPlayer extends Player
+public class DumbRobotPlayer extends Player implements Displayable
 {
     public DumbRobotPlayer(int id, String nom){
         super(id,nom);
@@ -16,8 +16,8 @@ public class DumbRobotPlayer extends Player
         for (int i=0;i<3;i++){
             for (int j=0;j<4;j++){
                 if (super.canBuyCard(board.getVisibleCards()[i][j])){
-                    BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[i][j]);
-                    action1.process(board , i,j);
+                    BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[i][j],i,j);
+                    action1.process(board , this);
                     return 0;
                 }
             }
@@ -25,7 +25,7 @@ public class DumbRobotPlayer extends Player
         for (Resource res: Resource.values()){
             if (board.getNbResource(res)>3){
                 PickSameTokensAction action2 = new PickSameTokensAction(res);
-                action2.process(board);
+                action2.process(board,this);
                 return 0;
             }
         }
@@ -35,10 +35,16 @@ public class DumbRobotPlayer extends Player
             }
             if (liste_res.size()==3){
                 PickDiffTokensAction action3 = new PickDiffTokensAction(liste_res);
-                action3.process(board);
+                action3.process(board,this);
                 return 0;
             }
         }
+        
+        PassAction action4 = new PassAction();
+        action4.process(board,this);
+        return 0;
+    }
+    public void chooseDiscardingTokens(Board board){
         while (super.getNbTokens()>10){
             for (Resource res: Resource.values()){
                 if (super.getNbResource(res)>0){
@@ -46,8 +52,5 @@ public class DumbRobotPlayer extends Player
                 }
             }
         }
-        PassAction action4 = new PassAction();
-        action4.process();
-        return 0;
     }
 }

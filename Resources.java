@@ -24,8 +24,10 @@ public class Resources {
             throw new InvalidResourceException("La valeur de la ressource " + elt + " ne peut pas être négative.");
         }
         int index = elt.ordinal();
-        if (index >= resources.size()) {
+        if (index > resources.size()) {
             throw new InvalidResourceException("Ressource invalide : " + elt);
+        }else if(index == resources.size()){
+            resources.add(valeur) ;
         }
         resources.set(index, valeur);
     }

@@ -20,16 +20,16 @@ public class Game {
     private Board board;
     private List<Player> players;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
-        Game game = new Game(2);
+        Game game = new Game(Integer.parseInt(args[0]));
         game.play();
         display.close();
     }
 
-    public Game(int nbOfPlayers)throws IllegalArgumentException{
-        if (nbOfPlayers<=2 || nbOfPlayers>4){
+    public Game(int nbOfPlayers)throws IllegalArgumentException, FileNotFoundException{
+        if (nbOfPlayers<2 || nbOfPlayers>4){
             throw new IllegalArgumentException("Le nombre de joueur doit être entre 2 et 4 joueurs inclus");
         }
         players = new ArrayList<>();
@@ -86,7 +86,7 @@ public class Game {
     private void discardToken(Player player){
         
         while (player.getNbTokens()>10){
-            player.chooseDiscardingTokens(board);
+            player.chooseDiscardingTokens(getBoard());
         }
     }
 
