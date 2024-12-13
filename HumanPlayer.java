@@ -7,7 +7,7 @@ import java.util.Scanner;
  * @author (votre nom)
  * @version (un numéro de version ou une date)
  */
-public class HumanPlayer extends Player implements Displayable{
+public class HumanPlayer extends Player{
     
     public HumanPlayer(int id, String nom){
         super(id,nom);
@@ -36,6 +36,7 @@ public class HumanPlayer extends Player implements Displayable{
             action4.process(board,this);
         }
         chooseDiscardingTokens(board);
+        s.close();
     }
     
     public void chooseDiscardingTokens(Board board){
@@ -70,6 +71,7 @@ public class HumanPlayer extends Player implements Displayable{
                     }
                 }
             }
+            s.close();
         }  
     }
     
@@ -99,6 +101,7 @@ public class HumanPlayer extends Player implements Displayable{
             Game.display.out.println("Erreur : Vous ne pouvez pas acheter cette carte, veuillez choisir une autre action");
             chooseAction(board);
         }
+        s.close();
     }
     
     public void chooseUniqueRes(Board board){
@@ -124,6 +127,7 @@ public class HumanPlayer extends Player implements Displayable{
             Game.display.out.println("Erreur : Le nombre de ces jetons restants est inférieur à 4, vous ne pouvez pas en prendre 2. Refaites votre choix.");
             chooseUniqueRes(board);
         }
+        s.close();
     }
     public void chooseManyRes(Board board){
         ArrayList<Resource> liste_choix= new ArrayList<Resource>();
@@ -142,6 +146,7 @@ public class HumanPlayer extends Player implements Displayable{
             }
             if(Integer.valueOf(choix)==2){
                 chooseAction(board);
+                s.close();
                 return;
             }else {
                 if (Integer.valueOf(choix)==1){
@@ -153,10 +158,12 @@ public class HumanPlayer extends Player implements Displayable{
                 PickDiffTokensAction action = new PickDiffTokensAction(liste_choix);
                 action.process(board,this);
             }
+            s.close();
         }
         if (liste_choix.size()<3){
             Game.display.out.println("Erreur : Vous n'avez pas saisis trois ressources au total, vous retournez au choix d'action.");
             chooseAction(board);
         }
+        
     }
 }
