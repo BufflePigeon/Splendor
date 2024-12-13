@@ -16,7 +16,6 @@ public class Resources {
 
     public int getNbResource(Resource elt) {
         int index = elt.ordinal();
-        System.out.println(resources.size()) ;
         if (index >= resources.size()) {
             throw new InvalidResourceException("La ressource " + elt + " n'est pas valide ou non initialisée.");
         }
