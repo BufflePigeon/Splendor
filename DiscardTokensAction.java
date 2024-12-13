@@ -7,38 +7,24 @@ import java.util.ArrayList;
  * @version 1.1
  */
 public class DiscardTokensAction implements Action {
-    private ArrayList<Resource> tokens;
+    private Resource token;
+    private int nb;
 
-    public DiscardTokensAction(ArrayList<Resource> tokens) {
-        this.tokens = tokens;
+    public DiscardTokensAction(Resource token, int nb) {
+        this.token = token;
+        this.nb = nb;
     }
 
     
     public void process(Board board, Player player) {
-        for (Resource ressource : tokens){
-            board.updateNbResource(ressource, 1);
-            player.updateNbResource(ressource, -1);
-        };
+        board.updateNbResource(token, nb);
+        player.updateNbResource(token, -nb);
     }
 
     
     public String toString() {
-        String res = "Vous avez défaussé :" ;
-        for (Resource ressource : tokens)
-            switch(ressource){
-                case DIAMOND:// à changer
-                    res += " " + Resource.DIAMOND ;
-                case SAPPHIRE:
-                    res += " " + Resource.SAPPHIRE ;
-                case EMERALD:
-                    res += " " + Resource.EMERALD ;
-                case RUBY:
-                    res += " " + Resource.RUBY ;
-                case ONYX:
-                    res += " " + Resource.ONYX ;
-            }
-        res += "." ;
+        String res = "Vous avez défaussé : " ;
+        res = res + nb + " " + token.toString()+".";
         return res ;
-    
     }
 }
