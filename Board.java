@@ -48,6 +48,7 @@ public class Board implements Displayable {
             Resource ressourceTypes ;
             switch(dataArray[7]){
                 case "DIAMOND" :
+                    // ajout de la ressource dans la pile
                     ressourceTypes = Resource.DIAMOND ;
                     break;
                 case "SAPPHIRE" :
@@ -79,10 +80,6 @@ public class Board implements Displayable {
                 case "3" :
                     stack3.add(e) ;
                     break ;
-            }
-
-            if(nbPlayer == 2){
-                
             }
 
         }
@@ -119,9 +116,9 @@ public class Board implements Displayable {
         
         visibleCards = new DevCard[3][4] ;
         // initialisation des visible cards
-        for(int i = 2; i>= 0; i--){
+        for(int i = 0; i < 3; i++){
             for(int j = 0; j< 4; j++){
-                visibleCards[i][j] = drawCard(i) ;
+                visibleCards[i][j] = drawCard(2-i) ;
             }
         }
         

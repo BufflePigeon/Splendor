@@ -22,12 +22,12 @@ public class BuyCardAction implements Action {
         if (player.canBuyCard(card)){
             player.addPurchasedCard(card);
             int i = 0;
-            for (int res : card.getCost()){
+            for (int res : card.getCost().getList()){
                 player.updateNbResource(Resource.values()[i],-res);
                 i++;
             }
             player.updatePoints(card.getPoints());
-            // A compléter : enlever la carte des cartes visibles et ajouter la prochaine
+            board.updateCard(card);
         } else {
             Game.display.out.println("Pas assez de ressources pour acheter la carte !");
         }
