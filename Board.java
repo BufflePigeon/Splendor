@@ -118,7 +118,7 @@ public class Board implements Displayable {
         // initialisation des visible cards
         for(int i = 0; i < 3; i++){
             for(int j = 0; j< 4; j++){
-                visibleCards[i][j] = drawCard(2-i) ;
+                visibleCards[i][j] = drawCard(3-i) ;
             }
         }
         
@@ -160,8 +160,8 @@ public class Board implements Displayable {
     public void updateCard(DevCard d){
         int tier = d.getTier(); 
         for(int i = 0; i< 3; i++){
-            if(visibleCards[tier][i].equals(d)){
-                visibleCards[tier][i] = drawCard(tier) ;
+            if(visibleCards[3-tier][i].equals(d)){
+                visibleCards[3-tier][i] = drawCard(tier) ;
                 return ;
             }
         }
@@ -169,7 +169,7 @@ public class Board implements Displayable {
 
     public DevCard drawCard(int tier){
         try{
-            return stackCards.get(tier).pop() ;
+            return stackCards.get(tier-1).pop() ;
         }catch(EmptyStackException e){
             return null ;
         }
