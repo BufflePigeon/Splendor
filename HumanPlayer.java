@@ -24,6 +24,7 @@ public class HumanPlayer extends Player{
         Scanner s = new Scanner(Game.display.in);
         String choix = s.nextLine();
         Game.display.out.println(choix);
+        s.close();
         if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>4){
             Game.display.out.println("Erreur : Votre réponse n'est pas comprise entre 0 et 4.");
             Game.display.out.println("");
@@ -40,7 +41,6 @@ public class HumanPlayer extends Player{
             action4.process(board,this);
         }
         chooseDiscardingTokens(board);
-        s.close();
     }
     
     public void chooseDiscardingTokens(Board board){
@@ -56,6 +56,7 @@ public class HumanPlayer extends Player{
             Scanner s = new Scanner(Game.display.in);
             String choix = s.nextLine();
             Game.display.out.println(choix);
+            s.close();
             if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>5){
                 Game.display.out.println("Erreur : Votre choix doit être compris entre 1 et 5.");
                 Game.display.out.println("");
@@ -64,14 +65,17 @@ public class HumanPlayer extends Player{
             for (int i=1;i<=5;i++){
                 if(Integer.valueOf(choix)==i){
                     if (super.getNbResource(Resource.values()[i-1])>0){
-                        Game.display.out.println("Vous avez" + super.getNbResource(Resource.values()[i-1]) + " " +Resource.values()[i-1].toString()+ ", combien voulez vous en jeter?");
+                        Game.display.out.println("Vous avez " + super.getNbResource(Resource.values()[i-1]) + " " +Resource.values()[i-1].toString()+ ", combien voulez vous en jeter?");
                         Game.display.out.println("");
-                        choix=s.nextLine();
+                        Scanner s2 = new Scanner(Game.display.in);
+                        choix=s2.nextLine();
                         Game.display.out.println(choix);
+                        s2.close();
                         if (Integer.valueOf(choix)<1||Integer.valueOf(choix)>super.getNbResource(Resource.values()[0])){
                             Game.display.out.println("Erreur : Vous avez saisis un nombre négatif ou vous avez saisis un nombre au dessus de votre nombre de ressoures.");
                             Game.display.out.println("");
                             chooseDiscardingTokens(board);
+                            return;
                         } else {
                             Action action = new DiscardTokensAction(Resource.values()[i-1], Integer.valueOf(choix));
                             action.process(board, this);
@@ -80,17 +84,16 @@ public class HumanPlayer extends Player{
                         Game.display.out.println("Erreur : Vous n'avez pas de " + Resource.values()[i-1].toString());
                         Game.display.out.println("");
                         chooseDiscardingTokens(board);
+                        return;
                     }
                 }
             }
-            s.close();
         }  
     }
     
     public void chooseCard(Board board){
         Game.display.out.println("Choisissez la carte que vous souhaitez acheter : ");
         Game.display.out.println("");
-        // Aficher les cartes ?
         Game.display.out.println("Pour selectionner votre carte, ecrivez sous le format suivant : x/y");
         Game.display.out.println("Avec x le numéro de la ligne (entre 1 et 3)");
         Game.display.out.println("Avec y le numéro de la colone (entre 1 et 4)");
@@ -100,19 +103,24 @@ public class HumanPlayer extends Player{
         Game.display.out.println("");
         String choix1 = s.nextLine();
         Game.display.out.println(choix1);
+        s.close();
         if (Integer.valueOf(choix1)<1 || Integer.valueOf(choix1)>3){
             Game.display.out.println("Erreur : Votre x doit être compris entre 1 et 3 (le numéro de la ligne). Veuillez ressaisir votre x.");
             Game.display.out.println("");
             chooseCard(board);
+            return;
         }
         Game.display.out.println("Saisissez la colonne (entre 1 et 4)");
         Game.display.out.println("");
-        String choix2 = s.nextLine();
+        Scanner s2 = new Scanner(Game.display.in);
+        String choix2 = s2.nextLine();
         Game.display.out.println(choix2);
+        s2.close();
         if (Integer.valueOf(choix2)<1 || Integer.valueOf(choix2)>4){
             Game.display.out.println("Erreur : Votre y doit être compris entre 1 et 4 (le numéro de la colonne). Veuillez ressaisir le tout (x et y).");
             Game.display.out.println("");
             chooseCard(board);
+            return;
         }
         if (super.canBuyCard(board.getVisibleCards()[Integer.valueOf(choix1)-1][Integer.valueOf(choix2)-1])){
             BuyCardAction action1 = new BuyCardAction(board.getVisibleCards()[Integer.valueOf(choix1)-1][Integer.valueOf(choix2)-1],Integer.valueOf(choix1)-1,Integer.valueOf(choix2)-1);
@@ -121,8 +129,8 @@ public class HumanPlayer extends Player{
             Game.display.out.println("Erreur : Vous ne pouvez pas acheter cette carte, veuillez choisir une autre action");
             Game.display.out.println("");
             chooseAction(board);
+            return;
         }
-        s.close();
     }
     
     public void chooseUniqueRes(Board board){
@@ -136,13 +144,16 @@ public class HumanPlayer extends Player{
         Scanner s = new Scanner(Game.display.in);
         String choix = s.nextLine();
         Game.display.out.println(choix);
+        s.close();
         if (Integer.valueOf(choix)<1 || Integer.valueOf(choix)>6){
             Game.display.out.println("Erreur : Vous devez saisir un chiffre entre 1 et 6.");
             Game.display.out.println("");
             chooseUniqueRes(board);
+            return;
         }
         if(Integer.valueOf(choix)==6){
             chooseAction(board);
+            return;
         }else if (board.getNbResource(Resource.values()[Integer.valueOf(choix)-1])>3){
             PickSameTokensAction action2 = new PickSameTokensAction(Resource.values()[Integer.valueOf(choix)-1]);
             action2.process(board,this);
@@ -150,8 +161,8 @@ public class HumanPlayer extends Player{
             Game.display.out.println("Erreur : Le nombre de ces jetons restants est inférieur à 4, vous ne pouvez pas en prendre 2. Refaites votre choix.");
             Game.display.out.println("");
             chooseUniqueRes(board);
+            return;
         }
-        s.close();
     }
     public void chooseManyRes(Board board){
         ArrayList<Resource> liste_choix= new ArrayList<Resource>();
@@ -167,14 +178,15 @@ public class HumanPlayer extends Player{
             Scanner s = new Scanner(Game.display.in);
             choix = s.nextLine();
             Game.display.out.println(choix);
+            s.close();
             if (Integer.valueOf(choix)<0 || Integer.valueOf(choix)>2){
                 Game.display.out.println("Erreur : Vous devez saisir un chiffre entre 0 et 2.");
                 Game.display.out.println("");
                 chooseManyRes(board);
+                return;
             }
             if(Integer.valueOf(choix)==2){
                 chooseAction(board);
-                s.close();
                 return;
             }else {
                 if (Integer.valueOf(choix)==1){
@@ -185,14 +197,13 @@ public class HumanPlayer extends Player{
             if (liste_choix.size()==3){
                 PickDiffTokensAction action = new PickDiffTokensAction(liste_choix);
                 action.process(board,this);
+                return;
             }
-            s.close();
         }
         if (liste_choix.size()<3){
             Game.display.out.println("Erreur : Vous n'avez pas saisis trois ressources au total, vous retournez au choix d'action.");
             Game.display.out.println("");
             chooseAction(board);
         }
-        
     }
 }

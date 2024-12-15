@@ -37,7 +37,7 @@ public class Game {
         players = new ArrayList<>();
         players.add(new HumanPlayer(1, "Joueur 1"));
         for (int i = 2; i <= nbOfPlayers; i++) {
-            players.add(new DumbRobotPlayer(i, "Robot " + i));
+            players.add(new DumbRobotPlayer(i, "Robot " + (i-1)));
         }
         board = new Board(nbOfPlayers);
     }
