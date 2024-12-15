@@ -2,22 +2,26 @@
 /**
  * Décrivez votre classe BuyCardAction ici.
  *
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Julien
+ * @version 2.1
  */
 public class BuyCardAction implements Action {
     private DevCard card;
     private int tier;
     private int colomn;
 
-
+    /**
+     * Constructeur de la classe BuyCardAction.
+     */
     public BuyCardAction(DevCard card, int tier, int colomn) {
         this.card = card;
         this.tier = tier;
         this.colomn=colomn;
     }
 
-    
+    /**
+     * Exécute l'action d'acheter une carte.
+     */        
     public void process(Board board, Player player) {
         if (player.canBuyCard(card)){
             player.addPurchasedCard(card);
@@ -34,7 +38,9 @@ public class BuyCardAction implements Action {
         
     }
 
-    
+    /**
+     * Affichage de l'action d'acheter une carte.
+     */        
     public String toString() {
         return "Acheter la carte avec l'ID : " + card;
     }

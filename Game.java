@@ -1,6 +1,6 @@
 /*
-* @author  Corentin Dufourg
-* @version     1.1
+* @author  Corentin Dufourg / Julien
+* @version     2.1
 * @since       1.0
 */
 
@@ -35,21 +35,30 @@ public class Game {
             throw new IllegalArgumentException("Le nombre de joueur doit être entre 2 et 4 joueurs inclus");
         }
         players = new ArrayList<>();
-        players.add(new HumanPlayer(1, "Joueur 1"));
+        players.add(new HumanPlayer(1, "Joueur 1")); // Premier joueur humain.
         for (int i = 2; i <= nbOfPlayers; i++) {
-            players.add(new DumbRobotPlayer(i, "Robot " + (i-1)));
+            players.add(new DumbRobotPlayer(i, "Robot " + (i-1))); // Ajout de robots.
         }
-        board = new Board(nbOfPlayers);
+        board = new Board(nbOfPlayers); // Initialisation du plateau.
     }
 
+    /**
+     * Retourne le nombre de joueurs dans la partie.
+     */
     public int getNbPlayers(){
         return players.size();
     }
-    
+
+    /**
+     * Retourne le plateau de jeu.
+     */    
     public Board getBoard(){
         return board ;
     }
 
+    /**
+     * Met à jour l'affichage du plateau et des joueurs.
+     */
     private void display(int currentPlayer){
         String[] boardDisplay = board.toStringArray();
         String[] playerDisplay = Display.emptyStringArray(0, 0);
@@ -67,6 +76,10 @@ public class Game {
         display.outBoard.println(String.join("\n", mainDisplay));
     }
 
+    /**
+     * Boucle principale du jeu.
+     * Permet aux joueurs de jouer leurs tours jusqu'à la fin de la partie.
+     */
     public void play(){
         while (!isGameOver()){
             for (Player player : players){
@@ -79,13 +92,17 @@ public class Game {
         gameOver();
             
     }
-    public void discard(Player player){
-        
-    }
+
+    /**
+     * Permet au joueur de choisir une action sur le plateau.
+     */
     private void move(Player player){
         player.chooseAction(board);
     }
 
+    /**
+     * Gère le défaussage des jetons si un joueur en a trop..
+     */
     private void discardToken(Player player){
         
         while (player.getNbTokens()>10){
@@ -93,6 +110,10 @@ public class Game {
         }
     }
 
+    /**
+     * Vérifie si la partie est terminée.
+     * Retourne true si un joueur a atteint ou dépassé 15 points.
+     */
     public boolean isGameOver(){
         //Renvoie true si c'est la fin du jeu
         boolean res = false;
@@ -104,6 +125,9 @@ public class Game {
         return res; 
     }
 
+    /**
+     * Gère la fin de la partie et annonce les gagnants.
+     */
     public void gameOver(){ 
         System.out.println("Partie terminée !");
         int maxPoints = 0;
