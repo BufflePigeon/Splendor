@@ -11,11 +11,14 @@ import java.util.EmptyStackException;
 
 public class Board implements Displayable {
 
+    // Liste des piles de cartes
     private ArrayList<Stack<DevCard>> stackCards ; 
+    // Tableau des cartes visibles
     private DevCard[][] visibleCards ;
-
+    // Ressources disponibles sur le plateau
     private Resources ressources ;
 
+    // Constructeur de la classe Board
     public Board(int nbPlayer) throws FileNotFoundException{
         // Création de trois piles de 3 niveaux 
         Stack<DevCard> stack1 = new Stack<>() ;
@@ -28,16 +31,17 @@ public class Board implements Displayable {
         Scanner csv = new Scanner(file, "UTF-8") ;
         csv.nextLine() ;
         
-        // Traitement des 99 lignes du fichier CSV
+        // Traitement des 99 lignes du fichier CSV (correspondant à 99 cartes)
         while(csv.hasNextLine()){          
             // Passage à la nouvelle ligne
             String data = csv.nextLine() ;
             // division de la ligne par les virgules dans un tableau
             String[] dataArray = data.split(",") ;
             if (dataArray[7].equals("NOBLE")){
+                // on ne prend pas en compte les nobles
                 continue ;
             }
-            // Création des ressources dans le type "Resources"
+            // Création des ressources dans le type "Resources" pour la carte
             Resources ressourcesCost = new Resources() ;
             ressourcesCost.setNbResource(Resource.DIAMOND, Integer.parseInt(dataArray[1]));
             ressourcesCost.setNbResource(Resource.SAPPHIRE, Integer.parseInt(dataArray[2]));
@@ -45,6 +49,7 @@ public class Board implements Displayable {
             ressourcesCost.setNbResource(Resource.RUBY, Integer.parseInt(dataArray[4]));
             ressourcesCost.setNbResource(Resource.ONYX, Integer.parseInt(dataArray[5]));
 
+            // création du type de ressource que la carte donne
             Resource ressourceTypes ;
             switch(dataArray[7]){
                 case "DIAMOND" :
@@ -91,6 +96,7 @@ public class Board implements Displayable {
         // ajout des stacks à l'attribut stackCards
         stackCards.add(stack1) ; stackCards.add(stack2) ; stackCards.add(stack3) ;
 
+        // Nombre de gemmes disponibles sur le plateau selon le nombre de joueurs
         int nbGemTokens;
         switch (nbPlayer) {
             case 2:
@@ -107,7 +113,7 @@ public class Board implements Displayable {
         }
     
         ressources = new Resources() ;
-        // initialisation des ressources
+        // initialisation des ressources sur le plateau
         ressources.setNbResource(Resource.DIAMOND, nbGemTokens);
         ressources.setNbResource(Resource.SAPPHIRE, nbGemTokens);
         ressources.setNbResource(Resource.EMERALD, nbGemTokens);
@@ -126,38 +132,78 @@ public class Board implements Displayable {
     }
 
     public Resources getResources(){
+        /* Accesseur
+         * Retourne les ressources disponibles sur le plateau
+         * @return ressources
+         */
         return ressources ;
     }
 
     public ArrayList<Stack<DevCard>> getStackCards(){
+        /* Accesseur
+         * Retourne les piles de cartes
+         * @return stackCards
+         */
         return stackCards ;
     }
 
     public DevCard[][] getVisibleCards(){
+        /* Accesseur
+         * Retourne les cartes visibles sur le plateau
+         * @return visibleCards
+         */
         return visibleCards ;
     }
 
     public int getNbResource(Resource r){
+        /* Accesseur
+         * Retourne le nombre de ressources disponibles sur le plateau
+         * @param r
+         * @return ressources.getNbResource(r)
+         */
         return ressources.getNbResource(r) ;
     }
 
     public void setNbRessources(Resource r, int valeur){
+        /* Mutateur
+         * Modifie le nombre de ressources disponibles sur le plateau
+         * @param r
+         * @param valeur
+         */
         ressources.setNbResource(r, valeur);
     }
 
     public void updateNbResource(Resource r,int valeur){
+        /* Mutateur
+         * Met à jour le nombre de ressources disponibles sur le plateau
+         * @param r
+         * @param valeur
+         */
         ressources.updateNbResource(r, valeur);
     }
 
     public ArrayList<String> getAvailableResouces(){
+        /* Accesseur
+         * Retourne les ressources disponibles sur le plateau
+         * @return ressources.getList()
+         */
         return getAvailableResouces() ;
     }
 
     public DevCard getCard(int tier, int colomn){
+        /* Accesseur
+         * Retourne la carte visible à la position donnée
+         * @param tier
+         * @param colomn
+         * @return visibleCards[tier][colomn]
+         */
         return visibleCards[tier][colomn] ;
     }
 
     public void updateCard(DevCard d){
+        /* Met à jour la carte visible
+         * @param d
+         */
         int tier = d.getTier(); 
         for(int i = 0; i< 4; i++){
             if(visibleCards[3-tier][i].equals(d)){
@@ -168,6 +214,10 @@ public class Board implements Displayable {
     }
 
     public DevCard drawCard(int tier){
+        /* Retire une carte de la pile
+         * @param tier
+         * @return stackCards.get(tier-1).pop()
+         */
         try{
             return stackCards.get(tier-1).pop() ;
         }catch(EmptyStackException e){
@@ -177,10 +227,18 @@ public class Board implements Displayable {
     }
 
     public boolean canGiveSameTokens(Resource r){
+        /* Vérifie si le joueur peut donner 2 gemmes de la même couleur
+         * @param r
+         * @return ressources.getNbResource(r) > 3
+         */
         return ressources.getNbResource(r) > 4 ;
     }
 
     public boolean canGiveDiffTokens(Resources rs){
+        /* Vérifie si le joueur peut donner 3 gemmes de couleurs différentes
+         * @param rs
+         * @return ressources.getNbResource(Resource.DIAMOND) > 0 && ressources.getNbResource(Resource.SAPPHIRE) > 0 && ressources.getNbResource(Resource.EMERALD) > 0 && ressources.getNbResource(Resource.RUBY) > 0 && ressources.getNbResource(Resource.ONYX) > 0
+         */
         for(Integer r : rs.getList()){
             switch(r){
                 case 0:
