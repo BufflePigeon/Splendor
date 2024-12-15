@@ -159,7 +159,7 @@ public class Board implements Displayable {
 
     public void updateCard(DevCard d){
         int tier = d.getTier(); 
-        for(int i = 0; i< 3; i++){
+        for(int i = 0; i< 4; i++){
             if(visibleCards[3-tier][i].equals(d)){
                 visibleCards[3-tier][i] = drawCard(tier) ;
                 return ;

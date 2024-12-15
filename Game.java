@@ -25,7 +25,7 @@ public class Game {
         //-- à modifier pour permettre plusieurs scénarios de jeu
         display.outBoard.println("Bienvenue sur Splendor !");
         //Game game = new Game(Integer.parseInt(args[0]));
-        Game game = new Game(2);
+        Game game = new Game(args.length > 0 ? Integer.parseInt(args[0]) : 2);
         game.play();
         display.close();
     }
