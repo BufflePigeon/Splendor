@@ -131,79 +131,79 @@ public class Board implements Displayable {
 
     }
 
+    /* Accesseur
+    * Retourne les ressources disponibles sur le plateau
+    * @return ressources
+    */
     public Resources getResources(){
-        /* Accesseur
-         * Retourne les ressources disponibles sur le plateau
-         * @return ressources
-         */
         return ressources ;
     }
 
+    /* Accesseur
+    * Retourne les piles de cartes
+    * @return stackCards
+    */
     public ArrayList<Stack<DevCard>> getStackCards(){
-        /* Accesseur
-         * Retourne les piles de cartes
-         * @return stackCards
-         */
         return stackCards ;
     }
 
+    /* Accesseur
+    * Retourne les cartes visibles sur le plateau
+    * @return visibleCards
+    */
     public DevCard[][] getVisibleCards(){
-        /* Accesseur
-         * Retourne les cartes visibles sur le plateau
-         * @return visibleCards
-         */
         return visibleCards ;
     }
 
+    /* Accesseur
+    * Retourne le nombre de ressources disponibles sur le plateau
+    * @param r
+    * @return ressources.getNbResource(r)
+    */
     public int getNbResource(Resource r){
-        /* Accesseur
-         * Retourne le nombre de ressources disponibles sur le plateau
-         * @param r
-         * @return ressources.getNbResource(r)
-         */
         return ressources.getNbResource(r) ;
     }
 
+    /* Mutateur
+    * Modifie le nombre de ressources disponibles sur le plateau
+    * @param r
+    * @param valeur
+    */
     public void setNbRessources(Resource r, int valeur){
-        /* Mutateur
-         * Modifie le nombre de ressources disponibles sur le plateau
-         * @param r
-         * @param valeur
-         */
         ressources.setNbResource(r, valeur);
     }
 
+    /* Mutateur
+    * Met à jour le nombre de ressources disponibles sur le plateau
+    * @param r
+    * @param valeur
+    */
     public void updateNbResource(Resource r,int valeur){
-        /* Mutateur
-         * Met à jour le nombre de ressources disponibles sur le plateau
-         * @param r
-         * @param valeur
-         */
         ressources.updateNbResource(r, valeur);
     }
 
+    /* Accesseur
+    * Retourne les ressources disponibles sur le plateau
+    * @return ressources.getList()
+    */
     public ArrayList<String> getAvailableResouces(){
-        /* Accesseur
-         * Retourne les ressources disponibles sur le plateau
-         * @return ressources.getList()
-         */
         return getAvailableResouces() ;
     }
 
+    /* Accesseur
+    * Retourne la carte visible à la position donnée
+    * @param tier
+    * @param colomn
+    * @return visibleCards[tier][colomn]
+    */
     public DevCard getCard(int tier, int colomn){
-        /* Accesseur
-         * Retourne la carte visible à la position donnée
-         * @param tier
-         * @param colomn
-         * @return visibleCards[tier][colomn]
-         */
         return visibleCards[tier][colomn] ;
     }
 
+    /* Met à jour la carte visible
+    * @param d
+    */
     public void updateCard(DevCard d){
-        /* Met à jour la carte visible
-         * @param d
-         */
         int tier = d.getTier(); 
         for(int i = 0; i< 4; i++){
             if(visibleCards[3-tier][i].equals(d)){
@@ -213,11 +213,11 @@ public class Board implements Displayable {
         }
     }
 
+    /* Retire une carte de la pile
+    * @param tier
+    * @return stackCards.get(tier-1).pop()
+    */
     public DevCard drawCard(int tier){
-        /* Retire une carte de la pile
-         * @param tier
-         * @return stackCards.get(tier-1).pop()
-         */
         try{
             return stackCards.get(tier-1).pop() ;
         }catch(EmptyStackException e){
@@ -226,19 +226,19 @@ public class Board implements Displayable {
         
     }
 
+    /* Vérifie si le joueur peut donner 2 gemmes de la même couleur
+    * @param r
+    * @return ressources.getNbResource(r) > 3
+    */
     public boolean canGiveSameTokens(Resource r){
-        /* Vérifie si le joueur peut donner 2 gemmes de la même couleur
-         * @param r
-         * @return ressources.getNbResource(r) > 3
-         */
         return ressources.getNbResource(r) > 4 ;
     }
 
+    /* Vérifie si le joueur peut donner 3 gemmes de couleurs différentes
+    * @param rs
+    * @return ressources.getNbResource(Resource.DIAMOND) > 0 && ressources.getNbResource(Resource.SAPPHIRE) > 0 && ressources.getNbResource(Resource.EMERALD) > 0 && ressources.getNbResource(Resource.RUBY) > 0 && ressources.getNbResource(Resource.ONYX) > 0
+    */
     public boolean canGiveDiffTokens(Resources rs){
-        /* Vérifie si le joueur peut donner 3 gemmes de couleurs différentes
-         * @param rs
-         * @return ressources.getNbResource(Resource.DIAMOND) > 0 && ressources.getNbResource(Resource.SAPPHIRE) > 0 && ressources.getNbResource(Resource.EMERALD) > 0 && ressources.getNbResource(Resource.RUBY) > 0 && ressources.getNbResource(Resource.ONYX) > 0
-         */
         for(Integer r : rs.getList()){
             switch(r){
                 case 0:
